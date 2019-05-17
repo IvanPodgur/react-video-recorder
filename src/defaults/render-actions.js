@@ -1,10 +1,10 @@
-import React from 'react'
-import styled from 'styled-components'
-import Button from './button'
-import RecordButton from './record-button'
-import StopButton from './stop-button'
-import Timer from './timer'
-import Countdown from './countdown'
+import React from "react";
+import styled from "styled-components";
+import Button from "./button";
+import RecordButton from "./record-button";
+import StopButton from "./stop-button";
+import Timer from "./timer";
+import Countdown from "./countdown";
 
 const ActionsWrapper = styled.div`
   position: absolute;
@@ -16,7 +16,7 @@ const ActionsWrapper = styled.div`
   justify-content: center;
   padding-top: 20px;
   padding-bottom: 80px;
-`
+`;
 
 export default ({
   isVideoInputSupported,
@@ -41,7 +41,7 @@ export default ({
 }) => {
   const renderContent = () => {
     const shouldUseVideoInput =
-      !isInlineRecordingSupported && isVideoInputSupported
+      !isInlineRecordingSupported && isVideoInputSupported;
 
     if (
       (!isInlineRecordingSupported && !isVideoInputSupported) ||
@@ -49,37 +49,42 @@ export default ({
       isConnecting ||
       isRunningCountdown
     ) {
-      return null
+      return null;
     }
 
     if (isReplayingVideo) {
       return (
-        <Button onClick={onStopReplaying} data-qa='start-replaying'>
-          Record another video
-        </Button>
-      )
+        <div>
+          <Button onClick={onStopReplaying} data-qa="start-replaying">
+            Record another video
+          </Button>
+          <Button onClick={onConfirm} data-qa="start-replaying">
+            Next Question
+          </Button>
+        </div>
+      );
     }
 
     if (isRecording) {
-      return <StopButton onClick={onStopRecording} data-qa='stop-recording' />
+      return <StopButton onClick={onStopRecording} data-qa="stop-recording" />;
     }
 
     if (isCameraOn && streamIsReady) {
       return (
-        <RecordButton onClick={onStartRecording} data-qa='start-recording' />
-      )
+        <RecordButton onClick={onStartRecording} data-qa="start-recording" />
+      );
     }
 
     return shouldUseVideoInput ? (
-      <Button onClick={onOpenVideoInput} data-qa='open-input'>
+      <Button onClick={onOpenVideoInput} data-qa="open-input">
         Record a video
       </Button>
     ) : (
-      <Button onClick={onTurnOnCamera} data-qa='turn-on-camera'>
+      <Button onClick={onTurnOnCamera} data-qa="turn-on-camera">
         Turn my camera ON
       </Button>
-    )
-  }
+    );
+  };
 
   return (
     <div>
@@ -87,5 +92,5 @@ export default ({
       {isRunningCountdown && <Countdown countdownTime={countdownTime} />}
       <ActionsWrapper>{renderContent()}</ActionsWrapper>
     </div>
-  )
-}
+  );
+};
